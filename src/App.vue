@@ -1,12 +1,12 @@
 <script setup>
-import { reactive, ref } from 'vue';
-import axios from 'axios'
-import { useRecaptchaProvider, Checkbox } from 'vue-recaptcha'
-import Alert from './components/Alert.vue'
-import vueFilePond from 'vue-filepond'
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js'
-import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size'
-import 'filepond/dist/filepond.min.css'
+import { reactive, ref } from "vue"
+import axios from "axios"
+import { useRecaptchaProvider, Checkbox } from "vue-recaptcha"
+import Alert from "./components/Alert.vue"
+import vueFilePond from "vue-filepond"
+import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js"
+import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size"
+import "filepond/dist/filepond.min.css"
 
 const FilePond = vueFilePond(
   FilePondPluginFileValidateType,
@@ -15,23 +15,23 @@ const FilePond = vueFilePond(
 
 useRecaptchaProvider()
 
-const responseToken = ref('')
+const responseToken = ref("")
 
 const initialStateForm = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  mobile: '',
-  startDate: '',
-  endDate: '',
-  hours: '',
-  siteName: '',
+  firstName: "",
+  lastName: "",
+  email: "",
+  mobile: "",
+  startDate: "",
+  endDate: "",
+  hours: "",
+  siteName: "",
   files: [],
 }
 
 const initialStateNotification = {
-  message: '',
-  class: '',
+  message: "",
+  class: "",
   show: false,
 }
 
@@ -57,37 +57,39 @@ const onSubmit = async () => {
         hours: formData.hours,
         site_name: formData.siteName,
         files: formData.files,
-        type: 'facilities_time_sheet',
+        type: "facilities_time_sheet",
         g_recaptcha_response: responseToken.value,
       },
       {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       }
     )
 
     const result = response.data
 
+    console.log(result);
+
     notification.message = result.message
-    notification.class = 'text-green-700 bg-green-100'
+    notification.class = "text-green-700 bg-green-100"
     notification.show = true
   } catch (error) {
     notification.message = error.response.data.message
-    notification.class = 'text-red-700 bg-red-100'
+    notification.class = "text-red-700 bg-red-100"
     notification.show = true
   } finally {
-    formData.firstName = ''
-    formData.lastName = ''
-    formData.email = ''
-    formData.mobile = ''
-    formData.startDate = ''
-    formData.endDate = ''
-    formData.hours = ''
-    formData.siteName = ''
+    formData.firstName = ""
+    formData.lastName = ""
+    formData.email = ""
+    formData.mobile = ""
+    formData.startDate = ""
+    formData.endDate = ""
+    formData.hours = ""
+    formData.siteName = ""
     formData.files = []
 
-    document.querySelector('#app').scrollIntoView({ behavior: 'smooth' })
+    document.querySelector("#app").scrollIntoView({ behavior: "smooth" })
   }
 }
 </script>
