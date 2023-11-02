@@ -69,8 +69,6 @@ const onSubmit = async () => {
 
     const result = response.data
 
-    console.log(result);
-
     notification.message = result.message
     notification.class = "text-green-700 bg-green-100"
     notification.show = true
